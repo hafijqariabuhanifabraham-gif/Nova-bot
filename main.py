@@ -1,4 +1,12 @@
-import logging, sqlite3, os
+import os
+from flask import Flask
+import threading
+app = Flask(__name__)
+@app.route('/')
+def home(): return "Bot is Live!"
+def run_flask(): app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+threading.Thread(target=run_flask).start()
+import logging, sqlite3
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
 
